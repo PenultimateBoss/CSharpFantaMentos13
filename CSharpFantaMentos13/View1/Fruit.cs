@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace CSharpFantaMentos13.View1;
 
-public class Fruit
+public class Fruit : IComparable<Fruit>
 {
     #region Static
     static internal T GetValueFromConsole<T>(string message) where T : IParsable<T>
@@ -61,6 +61,13 @@ public class Fruit
     public override string ToString()
     {
         return $"{nameof(Name)}: {Name}; {nameof(Color)}: {Color}";
+    }
+    #endregion
+
+    #region IComparable<Fruit>
+    public int CompareTo(Fruit? other)
+    {
+        return this.Name.CompareTo(other?.Name ?? "");
     }
     #endregion
 }
