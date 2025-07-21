@@ -1,26 +1,19 @@
 ﻿using System;
 
-namespace CSharpFantaMentos13.View1;
+namespace CSharpFantaMentos13.View2;
 
-public sealed class Citrus : Fruit
+public sealed class Citrus(string name, string color, int vitamin_c) : Fruit(name, color)
 {
     #region Instance
-    private int vitamin_c;
     public int VitaminC
     {
-        get => vitamin_c;
+        get => field;
         set
         {
-            ArgumentOutOfRangeException.ThrowIfNegative(value, nameof(value));
-            vitamin_c = value;
+            ArgumentOutOfRangeException.ThrowIfNegative(value);
+            field = value;
         }
-    }
-
-    public Citrus(string name, string color, int vitamin_c) : base(name, color)
-    {
-        ArgumentOutOfRangeException.ThrowIfNegative(vitamin_c, nameof(vitamin_c));
-        this.vitamin_c = vitamin_c;
-    }
+    } = vitamin_c;
     #endregion
 
     #region Fruit

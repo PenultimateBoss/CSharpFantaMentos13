@@ -1,0 +1,64 @@
+﻿using System;
+using System.Globalization;
+
+namespace CSharpFantaMentos13.View2;
+
+public class Fruit(string name, string color) : IComparable<Fruit>
+{
+    #region Static
+    static internal T GetValueFromConsole<T>(string message) where T : IParsable<T>
+    {
+        T? value;
+        Console.Write($"{message}({typeof(T).FullName})>>> ");
+        while(T.TryParse(Console.ReadLine() ?? "", CultureInfo.InvariantCulture, out value) is false)
+        {
+            Console.Write("Can`t parse input. Try again: ");
+            Console.Write($"{message}({typeof(T).FullName})>>> ");
+        }
+        return value;
+    }
+    #endregion
+
+    #region Instance
+    public string Name
+    {
+        get => name;
+        set
+        {
+            name = value;
+        }
+    }
+    public string Color
+    {
+        get => color;
+        set
+        {
+            color = value;
+        }
+    }
+
+    public virtual void Input()
+    {
+        Name = GetValueFromConsole<string>($"{nameof(Fruit)}.{nameof(Name)}");
+        Color = GetValueFromConsole<string>($"{nameof(Fruit)}.{nameof(Color)}");
+    }
+    public virtual void Output()
+    {
+        Console.WriteLine(this.ToString());
+    }
+    #endregion
+
+    #region Object
+    public override string ToString()
+    {
+        return $"{nameof(Name)}: {Name}; {nameof(Color)}: {Color}";
+    }
+    #endregion
+
+    #region IComparable<Fruit>
+    public int CompareTo(Fruit? other)
+    {
+        return this.Name.CompareTo(other?.Name ?? "");
+    }
+    #endregion
+}
